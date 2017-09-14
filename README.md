@@ -11,13 +11,13 @@ Zenbot has a Discord chat again! You can get in [through this invite link](https
 
 ## Known Issues and current status
 
-Currently (11 days after being released), Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
+Currently (11 days after being released), Zenbot 4 is functional but is having trouble reliably making a profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
 
 - Many people are reporting [losses in live trading](https://github.com/carlos8f/zenbot/issues/189) even if the simulation results and/or paper trading is positive.
-- This is my highest priority right now, since an unprofitable bot is not worth much, but please understand that reliably making profit is hard, and so is making a realistic simulator.
-- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
-- The limit-order strategy that Zenbot uses to avoid taker fees, is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
-- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading, but mitigating the possible losses from the issues above.
+- This is my highest priority right now since an unprofitable bot is not worth much, but please understand that reliably making a profit is hard, and so is making a realistic simulator.
+- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently, I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
+- The limit-order strategy that Zenbot uses to avoid taker fees is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
+- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading but mitigating the possible losses from the issues above.
 
 Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
 
@@ -70,7 +70,7 @@ cp conf-sample.js conf.js
 - View and edit `conf.js`.
 - It's possible to use zenbot in "paper trading" mode without making any changes.
 - You must add your exchange API keys to enable real trading however.
-- API keys do NOT need deposit/withdrawl permissions.
+- API keys do NOT need deposit/withdrawal permissions.
 
 If using Docker, skip to section "Docker" below.
 
@@ -161,7 +161,7 @@ For additional options related to the strategy, use:
 zenbot list-strategies
 ```
 
-- By default the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
+- By default, the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
 - Open `sim_result.html` in your browser to see a candlestick graph with trades.
 
 #### Screenshot and example result
@@ -401,7 +401,7 @@ Trade when % change from last two 1m periods is higher than average.
 - Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=5m` or `--trend_ema=15` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema` or increasing `neutral_rate`.
 - Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
 - `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
-- In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
+- In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However, in strong, long uptrends this option may end up causing a sell too early.
 - For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
 ## Manual trade tools
